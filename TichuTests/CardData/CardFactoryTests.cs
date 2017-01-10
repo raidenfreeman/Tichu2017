@@ -9,7 +9,7 @@ namespace Tichu.CardDataNamespace.Tests
         public void CreateCardTest()
         {
             CardFactory cf = new CardFactory();
-            Assert.AreEqual("5 of Hearts, ID: 32, Wildcard: False", cf.CreateCard(5, CardSuit.Hearts).ToString());
+            Assert.AreEqual("5 of Hearts, ID: 30, Wildcard: False", cf.CreateCard(5, CardSuit.Hearts).ToString());
         }
 
         [TestMethod()]

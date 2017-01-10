@@ -211,25 +211,49 @@ namespace Tichu.Tests
 
         #region ThreeOfAkind
         [TestMethod()]
-        public void CardAnalyzer__RecognizeThreeOfAKind()
+        public void CardAnalyzer_ThreeOfAKind_RecognizeThreeOfAKind()
         {
-            Assert.Fail();
+            cards = new List<CardData> {
+                cf.CreateCard(5, CardSuit.Hearts),
+                cf.CreateCard(5, CardSuit.Spades),
+                cf.CreateCard(5, CardSuit.Clubs)
+            };
+            Assert.IsInstanceOfType(ca.AnalyzeCards(cards), typeof(Triple));
         }
-        #endregion
 
-        #region FourOfAKind
         [TestMethod()]
-        public void CardAnalyzer__RecognizeFourOfAKind()
+        public void CardAnalyzer_ThreeOfAKindWithPhoenix_RecognizeThreeOfAKind()
         {
-            Assert.Fail();
+            cards = new List<CardData> {
+                cf.CreateCard(5, CardSuit.Hearts),
+                cf.CreateCard(5, CardSuit.Spades),
+                cf.CreatePhoenix()
+            };
+            Assert.IsInstanceOfType(ca.AnalyzeCards(cards), typeof(Triple));
         }
-        #endregion
 
-        #region NOfAKind
         [TestMethod()]
-        public void CardAnalyzer__RecognizeNOfAKind()
+        public void CardAnalyzer_ThreeOfAKindPlusPhoenix_FailThreeOfAKind()
         {
-            Assert.Fail();
+            cards = new List<CardData> {
+                cf.CreateCard(5, CardSuit.Hearts),
+                cf.CreateCard(5, CardSuit.Spades),
+                cf.CreateCard(5, CardSuit.Clubs),
+                cf.CreatePhoenix()
+            };
+            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(Triple));
+        }
+
+        [TestMethod()]
+        public void CardAnalyzer_FourCards_FailThreeOfAKind()
+        {
+            cards = new List<CardData> {
+                cf.CreateCard(5, CardSuit.Hearts),
+                cf.CreateCard(5, CardSuit.Spades),
+                cf.CreateCard(5, CardSuit.Clubs),
+                cf.CreateCard(5, CardSuit.Diamonds)
+            };
+            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(Triple));
         }
         #endregion
 
@@ -315,14 +339,36 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
-        public void CardAnalyzer_6CardStraightwithPhoenix_RecognizeStraight()
+        public void CardAnalyzer_6CardStraightwithPhoenixInTheMiddle_RecognizeStraight()
         {
             cards = new List<CardData>
             {
+                cf.CreateCard(8,CardSuit.Spades),
+                cf.CreateCard(5,CardSuit.Hearts),
+                cf.CreatePhoenix(),
+                cf.CreateCard(3,CardSuit.Diamonds),
+                cf.CreateCard(7,CardSuit.Hearts),
+                cf.CreateCard(4,CardSuit.Clubs)
             };
             Assert.IsInstanceOfType(ca.AnalyzeCards(cards), typeof(Straight));
         }
 
+        [TestMethod()]
+        public void CardAnalyzer_6CardStraightwithPhoenixInTheEnd_RecognizeStraight()
+        {
+            cards = new List<CardData>
+            {
+                cf.CreateCard(6,CardSuit.Spades),
+                cf.CreateCard(5,CardSuit.Hearts),
+                cf.CreatePhoenix(),
+                cf.CreateCard(3,CardSuit.Diamonds),
+                cf.CreateCard(7,CardSuit.Hearts),
+                cf.CreateCard(4,CardSuit.Clubs)
+            };
+            Assert.IsInstanceOfType(ca.AnalyzeCards(cards), typeof(Straight));
+        }
+
+        [TestMethod()]
         public void CardAnalyzer_Bomb_FailStraight()
         {
             cards = new List<CardData> {
@@ -340,6 +386,10 @@ namespace Tichu.Tests
         {
             cards = new List<CardData>
             {
+                cf.CreateCard(5,CardSuit.Hearts),
+                cf.CreateCard(3,CardSuit.Diamonds),
+                cf.CreateCard(6,CardSuit.Hearts),
+                cf.CreateCard(4,CardSuit.Clubs)
             };
             Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(Straight));
         }
@@ -349,6 +399,26 @@ namespace Tichu.Tests
         {
             cards = new List<CardData>
             {
+                cf.CreateCard(12,CardSuit.Hearts),
+                cf.CreateCard(3,CardSuit.Diamonds),
+                cf.CreateCard(5,CardSuit.Hearts),
+                cf.CreateCard(4,CardSuit.Clubs),
+                cf.CreateCard(2,CardSuit.Clubs)
+            };
+            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(Straight));
+        }
+
+        [TestMethod()]
+        public void CardAnalyzer_NotStraightWithPhoenix_FailStraight()
+        {
+            cards = new List<CardData>
+            {
+                cf.CreateCard(12,CardSuit.Hearts),
+                cf.CreatePhoenix(),
+                cf.CreateCard(3,CardSuit.Diamonds),
+                cf.CreateCard(5,CardSuit.Hearts),
+                cf.CreateCard(4,CardSuit.Clubs),
+                cf.CreateCard(2,CardSuit.Clubs)
             };
             Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(Straight));
         }
