@@ -1,26 +1,30 @@
-﻿namespace Tichu.CardDataNamespace
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Tichu.CardDataNamespace
 {
     public class CardFactory
     {
 
-        //CardData CreateMajhong()
-        //{
+        public CardData CreateMajhong()
+        {
+            return new CardData(RuleVariables._mahjongID, RuleVariables._majongValue, CardSuit.Special);
+        }
+        public CardData CreateDragon()
+        {
+            return new CardData(RuleVariables._dragonID, RuleVariables._dragonValue, CardSuit.Special);
+        }
 
-        //}
-        //CardData CreateDragon()
-        //{
+        public CardData CreatePhoenix()
+        {
+            return new CardData(RuleVariables._phoenixID, RuleVariables._specialCardNumericalValue, CardSuit.Special, true);
+        }
 
-        //}
-
-        //CardData CreatePhoenix()
-        //{
-
-        //}
-
-        //CardData CreateDogs()
-        //{
-
-        //}
+        public CardData CreateDogs()
+        {
+            return new CardData(RuleVariables._dogID, RuleVariables._specialCardNumericalValue, CardSuit.Special);
+        }
 
         public CardData CreateCard(int value, CardSuit suit)
         {
@@ -37,7 +41,30 @@
             {
                 throw new System.ArgumentOutOfRangeException(nameof(value));
             }
-            return value + ((int)suit * 14) - 1;
+            return value + ((int)suit * 13) - 1;
+        }
+
+        public List<CardData> CreateTichuDeck()
+        {
+            var deck = new List<CardData>();
+            foreach (var suit in Enum.GetValues(typeof(CardSuit)).Cast<CardSuit>())
+            {
+                if (suit == CardSuit.Special)
+                {
+                    deck.Add(CreateDragon());
+                    deck.Add(CreateMajhong());
+                    deck.Add(CreatePhoenix());
+                    deck.Add(CreateDogs());
+                }
+                else
+                {
+                    for (int j = 1; j < 14; j++)
+                    {
+                        deck.Add(CreateCard(j, suit));
+                    }
+                }
+            }
+            return deck;
         }
     }
 }

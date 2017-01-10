@@ -20,7 +20,7 @@
 
         public const int _dragonID = 0 + _totalRegularCards;
 
-        public const int _majongID = 1 + _totalRegularCards;
+        public const int _mahjongID = 1 + _totalRegularCards;
 
         public const int _phoenixID = 2 + _totalRegularCards;
 

@@ -252,7 +252,7 @@ namespace Tichu
             int specialCardsCount = NumberOfSpecialCards(cards.ToList());
             int wildCardsCount = NumberOfWildcards(cards.ToList());
 
-            bool containsMajong = cards.Any(x => x.ID == RuleVariables._majongID);
+            bool containsMajong = cards.Any(x => x.ID == RuleVariables._mahjongID);
 
             if (containsMajong && specialCardsCount > 1)
             {

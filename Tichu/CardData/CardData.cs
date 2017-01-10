@@ -18,7 +18,35 @@
 
         public override string ToString()
         {
-            return NumericalValue + " of " + Suit + ", ID: " + ID + ", Wildcard: " + IsWildcard;
+            string cardName = NumericalValue.ToString();
+            if (NumericalValue == 14)
+            {
+                cardName = "Ace";
+            }
+            if (ID == RuleVariables._dogID)
+            {
+                cardName = "Dogs";
+            }
+            if (ID == RuleVariables._mahjongID)
+            {
+                cardName = "Mahjong";
+            }
+            if (ID == RuleVariables._dragonID)
+            {
+                cardName = "Dragon";
+            }
+            if (ID == RuleVariables._phoenixID)
+            {
+                cardName = "Phoenix";
+            }
+            if (Suit == CardSuit.Special)
+            {
+                return cardName + ", ID: " + ID + ", Wildcard: " + IsWildcard;
+            }
+            else
+            {
+                return cardName + " of " + Suit + ", ID: " + ID + ", Wildcard: " + IsWildcard;
+            }
         }
     }
 }
