@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Tichu.AnalysisResults;
+using Tichu.CardDataNamespace;
 
 namespace Tichu
 {

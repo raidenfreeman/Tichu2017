@@ -1,4 +1,4 @@
-﻿namespace Tichu
+﻿namespace Tichu.CardDataNamespace
 {
     public enum CardSuit { Spades = 0, Clubs = 1, Hearts = 2, Diamonds = 3, Special = 4 };
     public class CardData
@@ -8,17 +8,17 @@
         public readonly CardSuit Suit;// { get; private set; }
         public readonly bool IsWildcard;// { get; private set; }
 
-        private CardData()
-        {
-
-        }
-
-        public CardData(int id, int value, CardSuit suit, bool isWildcard = false)
+        internal CardData(int id, int value, CardSuit suit, bool isWildcard = false)
         {
             ID = id;
             NumericalValue = value;
             Suit = suit;
             IsWildcard = isWildcard;
+        }
+
+        public override string ToString()
+        {
+            return NumericalValue + " of " + Suit + ", ID: " + ID + ", Wildcard: " + IsWildcard;
         }
     }
 }

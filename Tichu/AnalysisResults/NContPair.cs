@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Tichu.CardDataNamespace;
 
 namespace Tichu.AnalysisResults
 {
@@ -10,7 +11,5 @@ namespace Tichu.AnalysisResults
         public NContPair(List<CardData> cards, int cardCount, int wildcardsCount) : base(cards, cardCount, wildcardsCount)
         {
         }
-
-
     }
 }
