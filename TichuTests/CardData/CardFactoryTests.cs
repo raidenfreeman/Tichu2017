@@ -17,7 +17,7 @@ namespace Tichu.CardDataNamespace.Tests
         {
             CardFactory cf = new CardFactory();
             var a = cf.CreateTichuDeck();
-            return;
+            Assert.AreEqual(a.Count, 56);
         }
     }
 }

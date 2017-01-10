@@ -28,6 +28,11 @@ namespace Tichu.CardDataNamespace
 
         public CardData CreateCard(int value, CardSuit suit)
         {
+            if (suit == CardSuit.Special)
+            {
+                throw new ArgumentException("Cannot create Special cards through this function.", nameof(suit));
+            }
+
             int id = CalculateID(value, suit);
 
             int numericalValue = value == 1 ? 14 : value;
