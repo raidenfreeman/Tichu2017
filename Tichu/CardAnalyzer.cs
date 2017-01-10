@@ -159,28 +159,36 @@ namespace Tichu
                 sortedCards = cards.Where(x => x.IsWildcard != true).OrderBy(x => x.NumericalValue).ToList();
             }
             else
+            {
                 sortedCards = cards.OrderBy(x => x.NumericalValue).ToList();
+            }
 
             //CONTINUITY CHECK
             var sortedCardsGroups = sortedCards.GroupBy(x => x.NumericalValue).ToList();
             int firstCardValue = sortedCardsGroups.First().First().NumericalValue;
-            int i = 0;
+            int currentGroupNumericalOffset = 0;
 
             foreach (var k in sortedCardsGroups)
             {
-                if (k.Count() != 2)
+                if (useWildcards && k.Count() > 2 || !useWildcards && k.Count() != 2)
+                {
                     return false;
-                if (k.First().NumericalValue != firstCardValue + i)
+                }
+                if (k.First().NumericalValue != firstCardValue + currentGroupNumericalOffset)
+                {
                     return false;
-                i++;
+                }
+                currentGroupNumericalOffset++;
             }
             //END CONT CHECK
 
             //if you have any special cards, they can't be part of pairs
             if (sortedCards.Count(x => x.Suit == CardSuit.Special) != 0)
+            {
                 return false;
+            }
 
-            i = 0;
+            int i = 0;
             int maxIterations = sortedCards.Count - 1; //We iterate over pairs, so the max iterations are 1 less than the cards that we've got
             List<CardData> cardPair = new List<CardData>(2);
             while (i < maxIterations)
@@ -188,7 +196,9 @@ namespace Tichu
                 cardPair.Add(sortedCards.ElementAt(i));
                 cardPair.Add(sortedCards.ElementAt(i + 1));
                 if (IsPair(cardPair))
+                {
                     i += 2;
+                }
                 else
                 {
                     if (useWildcards && wildCardsCount > 0)
@@ -197,7 +207,9 @@ namespace Tichu
                         i++;
                     }
                     else
+                    {
                         return false;
+                    }
                 }
                 cardPair.Clear();
             }
