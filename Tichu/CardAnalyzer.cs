@@ -18,7 +18,7 @@ namespace Tichu
         /// </summary>
         /// <param name="cards">The list of cards to examine</param>
         /// <returns>The kind of trick along with its value and other info</returns>
-        public AnalysisResult AnalyzeCards(IEnumerable<CardData> cards)
+        public TichuTrick AnalyzeCards(IEnumerable<CardData> cards)
         {
             int cardCount = cards.Count();
 
@@ -37,9 +37,9 @@ namespace Tichu
                 case 1:
                     return new Single(orderedCards, cardCount, WildcardCount);
                 case 2:
-                    return IsPair(cards, true) ? (AnalysisResult)new Pair(orderedCards, cardCount, WildcardCount) : new None(orderedCards, cardCount, WildcardCount);
+                    return IsPair(cards, true) ? (TichuTrick)new Pair(orderedCards, cardCount, WildcardCount) : new None(orderedCards, cardCount, WildcardCount);
                 case 3:
-                    return IsThreeOfAKind(cards, true) ? (AnalysisResult)new Triple(orderedCards, cardCount, WildcardCount) : new None(orderedCards, cardCount, WildcardCount);
+                    return IsThreeOfAKind(cards, true) ? (TichuTrick)new Triple(orderedCards, cardCount, WildcardCount) : new None(orderedCards, cardCount, WildcardCount);
                 case 5:
                     if (IsFullHouse(cards, true))
                         return new FullHouse(orderedCards, cardCount, WildcardCount);
@@ -54,18 +54,18 @@ namespace Tichu
             return new None(orderedCards, cardCount, WildcardCount);
         }
 
-        public bool IsBomb(IEnumerable<CardData> cards)
+        bool IsBomb(IEnumerable<CardData> cards)
         {
             //bombs can't use wildcards
             return (IsFourOfAKind(cards) || IsStraightFlush(cards, 5, 14));
         }
 
-        public bool IsSingle(IEnumerable<CardData> cards)
+        bool IsSingle(IEnumerable<CardData> cards)
         {
             return cards.Count() == 1;
         }
 
-        public bool IsPair(IEnumerable<CardData> cards, bool useWildcards = false, bool wildcardsCopySpecial = false)
+        bool IsPair(IEnumerable<CardData> cards, bool useWildcards = false, bool wildcardsCopySpecial = false)
         {
             if (cards.Count() == 2) //if you have 2 cards
             {
@@ -91,7 +91,7 @@ namespace Tichu
         /// <summary>
         /// Recognizes a N amount of pairs
         /// </summary>
-        public bool IsNPair(IEnumerable<CardData> cards, int N, bool useWildcards = false)
+        bool IsNPair(IEnumerable<CardData> cards, int N, bool useWildcards = false)
         {
             //If the cards are not of 2 times N, they can't be N-pair
             if (cards.Count() != N * 2)
@@ -143,7 +143,7 @@ namespace Tichu
         /// <summary>
         /// Returns true for continous pairs like 9,9,10,10,J,J
         /// </summary>
-        public bool IsNContinousPair(IEnumerable<CardData> cards, int N, bool useWildcards = false)
+        bool IsNContinousPair(IEnumerable<CardData> cards, int N, bool useWildcards = false)
         {
             //If the cards are not of 2 times N, they can't be N-pair
             if (cards.Count() != N * 2)
@@ -216,17 +216,17 @@ namespace Tichu
             return true;
         }
 
-        public bool IsThreeOfAKind(IEnumerable<CardData> cards, bool useWildcards = false)
+        bool IsThreeOfAKind(IEnumerable<CardData> cards, bool useWildcards = false)
         {
             return IsNOfAKind(3, cards, useWildcards);
         }
-        public bool IsFourOfAKind(IEnumerable<CardData> cards, bool useWildcards = false)
+        bool IsFourOfAKind(IEnumerable<CardData> cards, bool useWildcards = false)
         {
             return IsNOfAKind(4, cards, useWildcards);
         }
 
 
-        public bool IsNOfAKind(int N, IEnumerable<CardData> cards, bool useWildcards = false)
+        bool IsNOfAKind(int N, IEnumerable<CardData> cards, bool useWildcards = false)
         {
             if (cards.Count() == N)
             {
@@ -248,7 +248,7 @@ namespace Tichu
                 return false;
         }
 
-        public bool IsStraight(IEnumerable<CardData> cards, int minCardNumber = 5, int maxCardNumber = 5, bool useWildcards = false, bool aceLowValid = true, bool aceHighValid = false)
+        bool IsStraight(IEnumerable<CardData> cards, int minCardNumber = 5, int maxCardNumber = 5, bool useWildcards = false, bool aceLowValid = true, bool aceHighValid = false)
         {
             //prevent invalid arguments
             if (maxCardNumber < minCardNumber)
@@ -371,7 +371,7 @@ namespace Tichu
             return true;
         }
 
-        public bool IsFlush(IEnumerable<CardData> cards, int minCardNumber = 5, int maxCardNumber = 5, bool useWildcards = false)
+        bool IsFlush(IEnumerable<CardData> cards, int minCardNumber = 5, int maxCardNumber = 5, bool useWildcards = false)
         {
             if (maxCardNumber < minCardNumber)
                 throw new System.ArgumentException("Maximum cards cannot be less than minimum cards", "maxCardNumber");
@@ -401,7 +401,7 @@ namespace Tichu
             return true;
         }
 
-        public bool IsStraightFlush(IEnumerable<CardData> cards, int minCardNumber = 5, int maxCardNumber = 5, bool useWildcards = false)
+        bool IsStraightFlush(IEnumerable<CardData> cards, int minCardNumber = 5, int maxCardNumber = 5, bool useWildcards = false)
         {
             if (maxCardNumber < minCardNumber)
                 throw new System.ArgumentException("Maximum cards cannot be less than minimum cards", "maxCardNumber");
@@ -411,7 +411,7 @@ namespace Tichu
                 return false;
         }
 
-        public bool IsFullHouse(IEnumerable<CardData> cards, bool useWildcards = false)
+        bool IsFullHouse(IEnumerable<CardData> cards, bool useWildcards = false)
         {
             if (cards.Count() != 5)
                 return false;

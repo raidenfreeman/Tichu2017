@@ -10,7 +10,7 @@ namespace Tichu.AnalysisResults
     /// <summary>
     /// Represents no valid combination
     /// </summary>
-    public class None : AnalysisResult
+    public class None : TichuTrick
     {
         public None(List<CardData> cards, int cardCount, int wildcardsCount) : base(cards, cardCount, wildcardsCount)
         {

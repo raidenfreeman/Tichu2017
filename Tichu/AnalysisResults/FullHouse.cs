@@ -7,7 +7,7 @@ namespace Tichu.AnalysisResults
     /// <summary>
     /// Represents 3 cards of the same value with 2 cards of the same value
     /// </summary>
-    public class FullHouse : AnalysisResult
+    public class FullHouse : TichuTrick
     {
         public readonly int TripleValue;
         public readonly int PairValue;

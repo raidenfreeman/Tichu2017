@@ -7,7 +7,7 @@ namespace Tichu.AnalysisResults
     /// <summary>
     /// The abstract result of analysis describing the combination of cards
     /// </summary>
-    public abstract class AnalysisResult
+    public abstract class TichuTrick
     {
 
         //Warning: this class works only with 1 wildcard in each combination.
@@ -24,7 +24,7 @@ namespace Tichu.AnalysisResults
         /// </summary>
         /// <param name="cards">this class works only with 1 wildcard in each combination.</param>
         /// <param name="combination"></param>
-        public AnalysisResult(List<CardData> cards, int cardCount, int wildcardsCount)
+        public TichuTrick(List<CardData> cards, int cardCount, int wildcardsCount)
         {
             CardCount = cardCount;
             WildcardsCount = wildcardsCount;

@@ -19,25 +19,37 @@
         public override string ToString()
         {
             string cardName = NumericalValue.ToString();
-            if (NumericalValue == 14)
+            switch (NumericalValue)
             {
-                cardName = "Ace";
+                case 11:
+                    cardName = "Jack";
+                    break;
+                case 12:
+                    cardName = "Queen";
+                    break;
+                case 13:
+                    cardName = "King";
+                    break;
+                case 14:
+                    cardName = "Ace";
+                    break;
             }
-            if (ID == RuleVariables._dogID)
+            switch (ID)
             {
-                cardName = "Dogs";
-            }
-            if (ID == RuleVariables._mahjongID)
-            {
-                cardName = "Mahjong";
-            }
-            if (ID == RuleVariables._dragonID)
-            {
-                cardName = "Dragon";
-            }
-            if (ID == RuleVariables._phoenixID)
-            {
-                cardName = "Phoenix";
+                case RuleVariables._dogID:
+                    cardName = "Dogs";
+                    break;
+                case RuleVariables._mahjongID:
+                    cardName = "Mahjong";
+                    break;
+                case RuleVariables._dragonID:
+                    cardName = "Dragon";
+                    break;
+                case RuleVariables._phoenixID:
+                    cardName = "Phoenix";
+                    break;
+                default:
+                    break;
             }
             if (Suit == CardSuit.Special)
             {
