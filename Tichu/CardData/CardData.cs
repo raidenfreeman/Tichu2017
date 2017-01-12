@@ -1,7 +1,7 @@
 ﻿namespace Tichu.CardDataNamespace
 {
     public enum CardSuit { Spades = 0, Clubs = 1, Hearts = 2, Diamonds = 3, Special = 4 };
-    public class CardData
+    public struct CardData
     {
         public readonly int ID;// { get; private set; }
         public readonly int NumericalValue;// { get; private set; }

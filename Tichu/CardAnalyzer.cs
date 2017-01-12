@@ -27,11 +27,17 @@ namespace Tichu
             int WildcardCount = cards.Where(x => x.IsWildcard).Count();
 
             if (cardCount == 0)
+            {
                 return new None(orderedCards, cardCount, WildcardCount);
-
-            if (IsBomb(cards))
-                return new Bomb(orderedCards, cardCount, WildcardCount);
-
+            }
+            if (IsFourOfAKind(cards))
+            {
+                return new BombFourOfAKind(orderedCards, cardCount, WildcardCount);
+            }
+            if (IsStraightFlush(cards, 5, 14))
+            {
+                return new BombStraight(orderedCards, cardCount, WildcardCount);
+            }
             switch (cardCount)
             {
                 case 1:
@@ -41,10 +47,19 @@ namespace Tichu
                 case 3:
                     return IsThreeOfAKind(cards, true) ? (TichuTrick)new Triple(orderedCards, cardCount, WildcardCount) : new None(orderedCards, cardCount, WildcardCount);
                 case 5:
-                    if (IsFullHouse(cards, true))
+                    var n = FindNumberOfCardsInFirstGroupOfFullHouse(cards, true);
+                    if (n == 1 || n == 3 || n == 2 && WildcardCount == 0)
+                    {
                         return new FullHouse(orderedCards, cardCount, WildcardCount);
+                    }
+                    if (n == 2 && WildcardCount != 0)
+                    {
+                        return new FullHousePairsWildcard(orderedCards, cardCount, WildcardCount);
+                    }
                     if (IsStraight(cards, 5, 14, true, false, true))
+                    {
                         return new Straight(orderedCards, cardCount, WildcardCount);
+                    }
                     return new None(orderedCards, cardCount, WildcardCount);
             }
             if (cardCount >= 5 && IsStraight(cards, cardCount, 14, true, false, true))
@@ -52,12 +67,6 @@ namespace Tichu
             if (IsNContinousPair(cards, (int)(cardCount * 0.5f), true))
                 return new NContPair(orderedCards, cardCount, WildcardCount);
             return new None(orderedCards, cardCount, WildcardCount);
-        }
-
-        bool IsBomb(IEnumerable<CardData> cards)
-        {
-            //bombs can't use wildcards
-            return (IsFourOfAKind(cards) || IsStraightFlush(cards, 5, 14));
         }
 
         bool IsSingle(IEnumerable<CardData> cards)
@@ -411,25 +420,39 @@ namespace Tichu
                 return false;
         }
 
-        bool IsFullHouse(IEnumerable<CardData> cards, bool useWildcards = false)
+
+        /// <summary>
+        /// Finds how many cards, one of the groups of the full house has
+        /// </summary>
+        /// <param name="cards"></param>
+        /// <param name="useWildcards"></param>
+        /// <returns>0 if it's not full house. 1 if it's 1 card + wildcard, 2 if it's 2+W, 3 otherwise</returns>
+        int FindNumberOfCardsInFirstGroupOfFullHouse(IEnumerable<CardData> cards, bool useWildcards = false)
         {
+
             if (cards.Count() != 5)
-                return false;
+                return 0;
 
             List<CardData> cardsWithoutWildcards;
 
             //if wildcards are allowed, remove them
             if (useWildcards)
+            {
                 cardsWithoutWildcards = cards.Where(x => x.IsWildcard != true).ToList();
+            }
             else
+            {
                 cardsWithoutWildcards = cards.ToList();
+            }
 
             //split the cards into groups based on their value
-            var valueGroupsCount = cardsWithoutWildcards.GroupBy(x => x.NumericalValue).ToList().Count();
+            var groups = cardsWithoutWildcards.GroupBy(x => x.NumericalValue);
+            var valueGroupsCount = groups.Count();
             if (valueGroupsCount != 2)
-                return false;
-
-            return true;
+            {
+                return 0;
+            }
+            return groups.First().Count();
         }
 
         int NumberOfWildcards(IEnumerable<CardData> cards)

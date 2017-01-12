@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisResults\AnalysisResult.cs" />
-    <Compile Include="AnalysisResults\Bomb.cs" />
+    <Compile Include="AnalysisResults\BombFourOfAKind.cs" />
+    <Compile Include="AnalysisResults\BombStraight.cs" />
     <Compile Include="AnalysisResults\FullHouse.cs" />
+    <Compile Include="AnalysisResults\FullHousePairsWildcard.cs" />
     <Compile Include="AnalysisResults\NContPair.cs" />
     <Compile Include="AnalysisResults\None.cs" />
     <Compile Include="AnalysisResults\Pair.cs" />

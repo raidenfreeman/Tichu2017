@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Tichu.CardDataNamespace;
 
 namespace Tichu.AnalysisResults
@@ -17,17 +13,12 @@ namespace Tichu.AnalysisResults
 
         }
 
-        protected override int CalculateCombinationValue()
+        protected override int CalculateTrickValue()
         {
             return 0;
         }
 
         protected override int CalculateHighestCardValue()
-        {
-            return 0;
-        }
-
-        protected override int CalculateLowestCardValue()
         {
             return 0;
         }

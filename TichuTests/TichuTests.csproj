@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AnalysisResults\StraightTests.cs" />
     <Compile Include="CardAnalyzerTests.cs" />
     <Compile Include="CardData\CardFactoryTests.cs" />
     <Compile Include="ExtensionsTests.cs" />

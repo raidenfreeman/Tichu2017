@@ -15,6 +15,7 @@ namespace Tichu.Tests
         #region Bomb
 
         [TestMethod()]
+        [TestCategory("Bomb")]
         public void CardAnalyzer_FourOfAKind_RecognizeBomb()
         {
             cards = new List<CardData> {
@@ -23,10 +24,11 @@ namespace Tichu.Tests
                 cf.CreateCard(5, CardSuit.Diamonds),
                 cf.CreateCard(5, CardSuit.Clubs)
             };
-            Assert.IsInstanceOfType(ca.AnalyzeCards(cards), typeof(Bomb));
+            Assert.IsInstanceOfType(ca.AnalyzeCards(cards), typeof(BombFourOfAKind));
         }
 
         [TestMethod()]
+        [TestCategory("Bomb")]
         public void CardAnalyzer_PhoenixFourOfAKind_FailBomb()
         {
             cards = new List<CardData> {
@@ -35,10 +37,11 @@ namespace Tichu.Tests
                 cf.CreateCard(5, CardSuit.Diamonds),
                 cf.CreatePhoenix()
             };
-            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(Bomb));
+            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(BombFourOfAKind));
         }
 
         [TestMethod()]
+        [TestCategory("Bomb")]
         public void CardAnalyzer_StraightFlushAceTo6_FailBomb()
         {
             //Ace is not 1 in tichu, it's only 14!!
@@ -50,10 +53,11 @@ namespace Tichu.Tests
                 cf.CreateCard(3, CardSuit.Clubs),
                 cf.CreateCard(2, CardSuit.Clubs)
             };
-            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(Bomb));
+            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(BombStraight));
         }
 
         [TestMethod()]
+        [TestCategory("Bomb")]
         public void CardAnalyzer_StraightFlush2To6_RecognizeBomb()
         {
             cards = new List<CardData> {
@@ -63,10 +67,11 @@ namespace Tichu.Tests
                 cf.CreateCard(3, CardSuit.Hearts),
                 cf.CreateCard(2, CardSuit.Hearts)
             };
-            Assert.IsInstanceOfType(ca.AnalyzeCards(cards), typeof(Bomb));
+            Assert.IsInstanceOfType(ca.AnalyzeCards(cards), typeof(BombStraight));
         }
 
         [TestMethod()]
+        [TestCategory("Bomb")]
         public void CardAnalyzer_PhoenixStraightFlush2To6_FailBomb()
         {
             cards = new List<CardData> {
@@ -76,10 +81,11 @@ namespace Tichu.Tests
                 cf.CreateCard(3, CardSuit.Hearts),
                 cf.CreateCard(2, CardSuit.Hearts)
             };
-            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(Bomb));
+            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(BombStraight));
         }
 
         [TestMethod()]
+        [TestCategory("Bomb")]
         public void CardAnalyzer_Straight2To6_FailBomb()
         {
             cards = new List<CardData> {
@@ -90,13 +96,14 @@ namespace Tichu.Tests
                 cf.CreateCard(2, CardSuit.Hearts),
                 cf.CreateCard(6, CardSuit.Hearts)
             };
-            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(Bomb));
+            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(BombFourOfAKind));
         }
 
         #endregion
 
         #region Single
         [TestMethod()]
+        [TestCategory("Single")]
         public void CardAnalyzer_TwoCards_FailSingle()
         {
             cards = new List<CardData> { cf.CreateCard(5, CardSuit.Clubs), cf.CreateDogs() };
@@ -104,6 +111,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Single")]
         public void CardAnalyzer_OneCard_RecognizeSingle()
         {
             cards = new List<CardData> { cf.CreateCard(1, CardSuit.Hearts) };
@@ -114,6 +122,7 @@ namespace Tichu.Tests
         #region Pair
 
         [TestMethod()]
+        [TestCategory("Pair")]
         public void CardAnalyzer_Pair_RecognizePair()
         {
             cards = new List<CardData> { cf.CreateCard(1, CardSuit.Diamonds), cf.CreateCard(1, CardSuit.Spades) };
@@ -121,6 +130,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Pair")]
         public void CardAnalyzer_PhoenixPair_RecognizePair()
         {
             cards = new List<CardData> { cf.CreatePhoenix(), cf.CreateCard(1, CardSuit.Spades) };
@@ -128,6 +138,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Pair")]
         public void CardAnalyzer_CardAndSpecial_FailPair()
         {
             cards = new List<CardData> { cf.CreateCard(3, CardSuit.Diamonds), cf.CreateMajhong() };
@@ -135,6 +146,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Pair")]
         public void CardAnalyzer_NotPair_FailPair()
         {
             cards = new List<CardData> { cf.CreateCard(3, CardSuit.Diamonds), cf.CreateCard(4, CardSuit.Diamonds) };
@@ -142,6 +154,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Pair")]
         public void CardAnalyzer_FourCards_FailPair()
         {
             cards = new List<CardData> { cf.CreateCard(3, CardSuit.Diamonds), cf.CreatePhoenix(), cf.CreateCard(3, CardSuit.Hearts), cf.CreateCard(3, CardSuit.Spades) };
@@ -151,6 +164,7 @@ namespace Tichu.Tests
 
         #region NContinousPair
         [TestMethod()]
+        [TestCategory("NContinousPair")]
         public void CardAnalyzer_3ContinousPair_RecognizeNContinousPair()
         {
             cards = new List<CardData> {
@@ -164,6 +178,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("NContinousPair")]
         public void CardAnalyzer_Phoenix2Pair_RecognizeNContinousPair()
         {
             cards = new List<CardData> {
@@ -175,6 +190,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("NContinousPair")]
         public void CardAnalyzer_ThreeOfAKindAndPairContinous_FailNContinousPair()
         {
             cards = new List<CardData> {
@@ -187,6 +203,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("NContinousPair")]
         public void CardAnalyzer_TwoPairsNotContinous_FailNContinousPair()
         {
             cards = new List<CardData> {
@@ -198,6 +215,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("NContinousPair")]
         public void CardAnalyzer_TwoPairsPhoenixNotContinous_FailNContinousPair()
         {
             cards = new List<CardData> {
@@ -211,6 +229,7 @@ namespace Tichu.Tests
 
         #region ThreeOfAkind
         [TestMethod()]
+        [TestCategory("ThreeOfAkind")]
         public void CardAnalyzer_ThreeOfAKind_RecognizeThreeOfAKind()
         {
             cards = new List<CardData> {
@@ -222,6 +241,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("ThreeOfAkind")]
         public void CardAnalyzer_ThreeOfAKindWithPhoenix_RecognizeThreeOfAKind()
         {
             cards = new List<CardData> {
@@ -233,6 +253,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("ThreeOfAkind")]
         public void CardAnalyzer_ThreeOfAKindPlusPhoenix_FailThreeOfAKind()
         {
             cards = new List<CardData> {
@@ -245,6 +266,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("ThreeOfAkind")]
         public void CardAnalyzer_FourCards_FailThreeOfAKind()
         {
             cards = new List<CardData> {
@@ -259,6 +281,7 @@ namespace Tichu.Tests
 
         #region Straight
         [TestMethod()]
+        [TestCategory("Straight")]
         public void CardAnalyzer_5CardStraight_RecognizeStraight()
         {
             cards = new List<CardData> {
@@ -272,6 +295,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Straight")]
         public void CardAnalyzer_10CardStraightWithMahjong_RecognizeStraight()
         {
             cards = new List<CardData>
@@ -291,6 +315,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Straight")]
         public void CardAnalyzer_14CardStraightWithMahjong_RecognizeStraight()
         {
             cards = new List<CardData>
@@ -314,8 +339,10 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Straight")]
         public void CardAnalyzer_15CardStraightWithPhoenixAndMahjong_FailStraight()
         {
+            //this test is stupid, you only get 14 cards in tichu, but according to the rules, even if you had 15 cards, this test would be valid
             //You can't make a 15 with the phoenix
             cards = new List<CardData>
             {
@@ -339,6 +366,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Straight")]
         public void CardAnalyzer_6CardStraightwithPhoenixInTheMiddle_RecognizeStraight()
         {
             cards = new List<CardData>
@@ -354,6 +382,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Straight")]
         public void CardAnalyzer_6CardStraightwithPhoenixInTheEnd_RecognizeStraight()
         {
             cards = new List<CardData>
@@ -369,6 +398,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Straight")]
         public void CardAnalyzer_Bomb_FailStraight()
         {
             cards = new List<CardData> {
@@ -378,10 +408,12 @@ namespace Tichu.Tests
                 cf.CreateCard(12,CardSuit.Diamonds),
                 cf.CreateCard(10,CardSuit.Diamonds)
             };
-            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(Straight));
+            var c = ca.AnalyzeCards(cards);
+            Assert.IsNotInstanceOfType(c, typeof(Straight));
         }
 
         [TestMethod()]
+        [TestCategory("Straight")]
         public void CardAnalyzer_4CardStraight_FailStraight()
         {
             cards = new List<CardData>
@@ -395,6 +427,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Straight")]
         public void CardAnalyzer_NotStraight_FailStraight()
         {
             cards = new List<CardData>
@@ -409,6 +442,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("Straight")]
         public void CardAnalyzer_NotStraightWithPhoenix_FailStraight()
         {
             cards = new List<CardData>
@@ -424,9 +458,9 @@ namespace Tichu.Tests
         }
         #endregion
 
-
         #region FullHouse
         [TestMethod()]
+        [TestCategory("FullHouse")]
         public void CardAnalyzer_ThreeOfAKindAndPair_RecognizeFullHouse()
         {
             cards = new List<CardData> {
@@ -439,6 +473,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("FullHouse")]
         public void CardAnalyzer_PhoenixPairAndPair_RecognizeFullHouse()
         {
             cards = new List<CardData> {
@@ -447,10 +482,11 @@ namespace Tichu.Tests
                 cf.CreateCard(4, CardSuit.Hearts),
                 cf.CreateCard(3, CardSuit.Clubs),
                 cf.CreateCard(4, CardSuit.Spades) };
-            Assert.IsInstanceOfType(ca.AnalyzeCards(cards), typeof(FullHouse));
+            Assert.IsInstanceOfType(ca.AnalyzeCards(cards), typeof(FullHousePairsWildcard));
         }
 
         [TestMethod()]
+        [TestCategory("FullHouse")]
         public void CardAnalyzer_PhoenixTripleAndSingle_RecognizeFullHouse()
         {
             cards = new List<CardData> {
@@ -463,6 +499,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
+        [TestCategory("FullHouse")]
         public void CardAnalyzer_TwoTriples_FailFullHouse()
         {
             cards = new List<CardData> {
@@ -473,9 +510,11 @@ namespace Tichu.Tests
                 cf.CreateCard(4, CardSuit.Spades),
                 cf.CreateCard(4, CardSuit.Hearts) };
             Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(FullHouse));
+            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(FullHousePairsWildcard));
         }
 
         [TestMethod()]
+        [TestCategory("FullHouse")]
         public void CardAnalyzer_FourCards_FailFullHouse()
         {
             cards = new List<CardData> {
@@ -484,6 +523,7 @@ namespace Tichu.Tests
                 cf.CreateCard(3, CardSuit.Clubs),
                 cf.CreateCard(4, CardSuit.Spades) };
             Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(FullHouse));
+            Assert.IsNotInstanceOfType(ca.AnalyzeCards(cards), typeof(FullHousePairsWildcard));
         }
         #endregion
     }

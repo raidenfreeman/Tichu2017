@@ -10,43 +10,36 @@ namespace Tichu.AnalysisResults
     public abstract class TichuTrick
     {
 
-        //Warning: this class works only with 1 wildcard in each combination.
-
-        public List<CardData> OrderedCards { get; protected set; }
+        public List<CardData> OrderedCards { get; private set; }
         public readonly int CardCount;
-        public int CombinationValue { get; protected set; }
-        public int HighestCardValue { get; protected set; }
-        public int LowestCardValue { get; protected set; }
-        public int WildcardsCount { get; protected set; }
+        public readonly int TrickValue;
+        public readonly int HighestCardValue;
+        public readonly int WildcardsCount;
 
         /// <summary>
         /// Constructs a response of analysis
         /// </summary>
-        /// <param name="cards">this class works only with 1 wildcard in each combination.</param>
-        /// <param name="combination"></param>
-        public TichuTrick(List<CardData> cards, int cardCount, int wildcardsCount)
+        /// <param name="cards">This class works only with 1 wildcard in each trick.</param>
+        internal TichuTrick(List<CardData> cards, int cardCount, int wildcardsCount)
         {
+            if (wildcardsCount > 1)
+            {
+                throw new System.ArgumentException("More than one wildcards support, is not yet implemented", nameof(wildcardsCount));
+            }
             CardCount = cardCount;
-            WildcardsCount = wildcardsCount;
-            OrderedCards = InitializeOrderedCards(cards);
-            CombinationValue = CalculateCombinationValue();
+            OrderedCards = OrderCards(cards, wildcardsCount);
+            TrickValue = CalculateTrickValue();
             HighestCardValue = CalculateHighestCardValue();
-            LowestCardValue = CalculateLowestCardValue();
         }
 
-        protected virtual List<CardData> InitializeOrderedCards(List<CardData> cards)
+        protected virtual List<CardData> OrderCards(List<CardData> cards, int WildcardCount)
         {
-            return cards.CopyList();
+            return cards.OrderBy(x => x.NumericalValue).ToList().CopyList();
         }
 
-        protected virtual int CalculateCombinationValue()
+        protected virtual int CalculateTrickValue()
         {
             return CalculateHighestCardValue();
-        }
-
-        protected virtual int CalculateLowestCardValue()
-        {
-            return OrderedCards.First().NumericalValue;
         }
 
         protected virtual int CalculateHighestCardValue()
