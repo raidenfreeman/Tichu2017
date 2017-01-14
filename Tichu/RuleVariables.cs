@@ -31,6 +31,16 @@
         public const int _majongValue = 1;
 
         public const int _maxCardValue = 14;
+
+        public const int KingPointValue = 10;
+
+        public const int FivePointValue = 5;
+
+        public const int TenPointValue = 10;
+
+        public const int DragonPointValue = 25;
+
+        public const int PhoenixPointValue = -25;
     }
 
 }

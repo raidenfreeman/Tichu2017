@@ -41,7 +41,14 @@ namespace Tichu
             switch (cardCount)
             {
                 case 1:
-                    return new Single(orderedCards, cardCount, WildcardCount);
+                    if (orderedCards.First().ID == RuleVariables._phoenixID)
+                    {
+                        return new PhoenixSingleTrick(orderedCards, cardCount, WildcardCount);
+                    }
+                    else
+                    {
+                        return new Single(orderedCards, cardCount, WildcardCount);
+                    }
                 case 2:
                     return IsPair(cards, true) ? (TichuTrick)new Pair(orderedCards, cardCount, WildcardCount) : new None(orderedCards, cardCount, WildcardCount);
                 case 3:

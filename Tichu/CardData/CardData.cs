@@ -7,6 +7,7 @@
         public readonly int NumericalValue;// { get; private set; }
         public readonly CardSuit Suit;// { get; private set; }
         public readonly bool IsWildcard;// { get; private set; }
+        public readonly int PointValue;
 
         internal CardData(int id, int value, CardSuit suit, bool isWildcard = false)
         {
@@ -14,6 +15,29 @@
             NumericalValue = value;
             Suit = suit;
             IsWildcard = isWildcard;
+            switch (value)
+            {
+                case 5:
+                    PointValue = RuleVariables.FivePointValue;
+                    break;
+                case 10:
+                    PointValue = RuleVariables.TenPointValue;
+                    break;
+                case 13:
+                    PointValue = RuleVariables.KingPointValue;
+                    break;
+                default:
+                    PointValue = 0;
+                    break;
+            }
+            if (id == RuleVariables._dragonID)
+            {
+                PointValue = RuleVariables.DragonPointValue;
+            }
+            if (id == RuleVariables._phoenixID)
+            {
+                PointValue = RuleVariables.PhoenixPointValue;
+            }
         }
 
         public override string ToString()
@@ -53,12 +77,30 @@
             }
             if (Suit == CardSuit.Special)
             {
-                return cardName + ", ID: " + ID + ", Wildcard: " + IsWildcard;
+                return cardName;
             }
             else
             {
-                return cardName + " of " + Suit + ", ID: " + ID + ", Wildcard: " + IsWildcard;
+                return cardName + " of " + Suit;
             }
+        }
+
+        public string ToStringDebug(bool showPointValue = false, bool showID = false, bool showIsWildcard = false)
+        {
+            string finalString = ToString();
+            if (showPointValue)
+            {
+                finalString += ", Points: " + PointValue;
+            }
+            if (showID)
+            {
+                finalString += ", ID: " + ID;
+            }
+            if (showIsWildcard)
+            {
+                finalString += ", Wildcard: " + IsWildcard;
+            }
+            return finalString;
         }
     }
 }

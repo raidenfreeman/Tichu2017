@@ -28,8 +28,8 @@ namespace Tichu.AnalysisResults
             }
             CardCount = cardCount;
             OrderedCards = OrderCards(cards, wildcardsCount);
-            TrickValue = CalculateTrickValue();
             HighestCardValue = CalculateHighestCardValue();
+            TrickValue = CalculateTrickValue();
         }
 
         protected virtual List<CardData> OrderCards(List<CardData> cards, int WildcardCount)

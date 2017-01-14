@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace Tichu.TurnManager.Tests
+namespace Tichu.TurnManagerNamespace.Tests
 {
     [TestClass()]
     public class TurnManagerTests
@@ -26,7 +26,8 @@ namespace Tichu.TurnManager.Tests
             List<int> playerIDs = new List<int> { firstID, secondID, thirdID, fourthID };
             TurnManager manager = new TurnManager(playerIDs);
             var initialTurn = manager.TurnCount;
-            int newTurnNumber = manager.AdvanceTurn();
+            manager.TryAdvanceTurn(playerIDs[0]);
+            int newTurnNumber = manager.TurnCount;
             Assert.AreEqual(initialTurn + 1, newTurnNumber);
         }
 
@@ -37,7 +38,7 @@ namespace Tichu.TurnManager.Tests
             TurnManager manager = new TurnManager(playerIDs);
             bool success = false;
             manager.TurnAdvanced += (int id) => { success = true; };
-            manager.AdvanceTurn();
+            manager.TryAdvanceTurn(playerIDs[0]);
             Assert.AreEqual(success, true);
         }
 
@@ -49,7 +50,7 @@ namespace Tichu.TurnManager.Tests
             TurnManager manager = new TurnManager(playerIDs);
             int returnedID = firstID;
             manager.TurnAdvanced += (int id) => { returnedID = id; };
-            manager.AdvanceTurn();
+            manager.TryAdvanceTurn(playerIDs[0]);
             Assert.AreEqual(secondID, returnedID);
         }
 
@@ -59,10 +60,10 @@ namespace Tichu.TurnManager.Tests
             Assert.AreNotEqual(firstID, fourthID);
             List<int> playerIDs = new List<int> { firstID, secondID, thirdID, fourthID };
             TurnManager manager = new TurnManager(playerIDs);
-            manager.AdvanceTurnExplicitlyToPlayer(fourthID);
+            manager.TryAdvanceTurnToPlayer(playerIDs[0], fourthID);
             int returnedID = fourthID;
             manager.TurnAdvanced += (int id) => { returnedID = id; };
-            manager.AdvanceTurn();
+            manager.TryAdvanceTurn(playerIDs[3]);
             Assert.AreEqual(firstID, returnedID);
         }
 
@@ -73,17 +74,39 @@ namespace Tichu.TurnManager.Tests
             TurnManager manager = new TurnManager(playerIDs);
             int returnedPlayerID = 0;
             manager.TurnAdvanced += (int id) => { returnedPlayerID = id; };
-            manager.AdvanceTurnExplicitlyToPlayer(fourthID);
+            manager.TryAdvanceTurnToPlayer(playerIDs[0], fourthID);
             Assert.AreEqual(returnedPlayerID, fourthID);
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+        [ExpectedException(typeof(System.ArgumentException))]
         public void AdvanceTurnExplicitlyToPlayer_InvalidPlayerID()
         {
             List<int> playerIDs = new List<int> { firstID, secondID, thirdID, fourthID };
             TurnManager manager = new TurnManager(playerIDs);
-            manager.AdvanceTurnExplicitlyToPlayer(nonExistentPlayerID);
+            manager.TryAdvanceTurnToPlayer(playerIDs[0], nonExistentPlayerID);
+        }
+
+        [TestMethod()]
+        public void AdvanceTurn_WrongPlayerCalling_TurnNotAdvancing()
+        {
+            List<int> playerIDs = new List<int> { firstID, secondID, thirdID, fourthID };
+            TurnManager manager = new TurnManager(playerIDs);
+            var initialTurn = manager.TurnCount;
+            Assert.AreEqual(manager.TryAdvanceTurn(playerIDs[1]), false);
+            int newTurnNumber = manager.TurnCount;
+            Assert.AreEqual(initialTurn, newTurnNumber);
+        }
+
+        [TestMethod()]
+        public void AdvanceTurn_WrongPlayerCalling_EventNotFired()
+        {
+            List<int> playerIDs = new List<int> { firstID, secondID, thirdID, fourthID };
+            TurnManager manager = new TurnManager(playerIDs);
+            bool success = false;
+            manager.TurnAdvanced += (int id) => { success = true; };
+            manager.TryAdvanceTurn(playerIDs[2]);
+            Assert.AreEqual(success, false);
         }
     }
 }

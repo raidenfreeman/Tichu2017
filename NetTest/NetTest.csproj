@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4B0E9A03-707F-4BE0-83BA-393898AAF842}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{AE16277B-B7FB-48E1-8EE5-36F15A7505D0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tichu</RootNamespace>
-    <AssemblyName>Tichu</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <RootNamespace>NetTest</RootNamespace>
+    <AssemblyName>NetTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,32 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysisResults\AnalysisResult.cs" />
-    <Compile Include="AnalysisResults\Bomb.cs" />
-    <Compile Include="AnalysisResults\BombFourOfAKind.cs" />
-    <Compile Include="AnalysisResults\BombStraight.cs" />
-    <Compile Include="AnalysisResults\FullHouse.cs" />
-    <Compile Include="AnalysisResults\FullHousePairsWildcard.cs" />
-    <Compile Include="AnalysisResults\NContPair.cs" />
-    <Compile Include="AnalysisResults\None.cs" />
-    <Compile Include="AnalysisResults\Pair.cs" />
-    <Compile Include="AnalysisResults\Phoenix.cs" />
-    <Compile Include="AnalysisResults\Single.cs" />
-    <Compile Include="AnalysisResults\Straight.cs" />
-    <Compile Include="AnalysisResults\Triple.cs" />
-    <Compile Include="CardAnalyzer.cs" />
-    <Compile Include="CardData\CardData.cs" />
-    <Compile Include="CardData\CardFactory.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="GameStateData\PlayerData.cs" />
-    <Compile Include="GameStateData\TableState.cs" />
-    <Compile Include="PlayerActions.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuleVariables.cs" />
-    <Compile Include="TrickPlayabilityRules.cs" />
-    <Compile Include="TurnManager\TurnManager.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

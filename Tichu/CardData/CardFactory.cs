@@ -40,6 +40,11 @@ namespace Tichu.CardDataNamespace
             return new CardData(id, numericalValue, suit);
         }
 
+        internal CardData CreatePhoenixSubstitute(int value)
+        {
+            return new CardData(RuleVariables._phoenixID, value, CardSuit.Special);
+        }
+
         int CalculateID(int value, CardSuit suit)
         {
             if (value < 1 || value > 13)

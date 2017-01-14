@@ -6,7 +6,7 @@ namespace Tichu.AnalysisResults
     /// <summary>
     /// Represents four cards of the same value, or a straight flush
     /// </summary>
-    public class BombStraight : TichuTrick
+    public sealed class BombStraight : Bomb
     {
         internal BombStraight(List<CardData> cards, int cardCount, int wildcardsCount) : base(cards, cardCount, wildcardsCount)
         {
@@ -15,7 +15,7 @@ namespace Tichu.AnalysisResults
 
         protected override int CalculateTrickValue()
         {
-            return HighestCardValue + 50 * CardCount;
+            return HighestCardValue + 128 * CardCount;
         }
     }
 }
