@@ -6,9 +6,9 @@ namespace Tichu.AnalysisResults
     /// <summary>
     /// Represents no valid combination
     /// </summary>
-    public class None : TichuTrick
+    public class Invalid : TichuTrick
     {
-        public None(List<CardData> cards, int cardCount, int wildcardsCount) : base(cards, cardCount, wildcardsCount)
+        public Invalid(List<CardData> cards, int cardCount, int wildcardsCount) : base(cards, cardCount, wildcardsCount)
         {
 
         }

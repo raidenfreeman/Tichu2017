@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Tichu.AnalysisResults;
+﻿using Tichu.AnalysisResults;
 
 namespace Tichu
 {
@@ -49,10 +48,6 @@ namespace Tichu
             }
             else
             {
-                if (DogResolution(newTrick, existingTrick))
-                {
-                    return true;
-                }
                 //if they are incompatible, they are not playable
                 return false;
             }
@@ -75,25 +70,6 @@ namespace Tichu
                 }
             }
             return newTrick.TrickValue > existingTrick.TrickValue;
-        }
-
-        private bool DogResolution(TichuTrick newTrick, TichuTrick existingTrick)
-        {
-            if (newTrick.OrderedCards.First().ID == RuleVariables._dogID)
-            {
-                if (existingTrick is None)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
         }
 
         private bool IsStrongerBomb(Bomb newTrick, Bomb existingTrick)

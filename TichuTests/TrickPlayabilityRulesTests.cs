@@ -230,14 +230,7 @@ namespace Tichu.Tests
         }
 
         [TestMethod()]
-        public void IsTrickPlayable_DogOverNone_True()
-        {
-            currentList = new List<CardData>();
-            Assert.IsTrue(tpr.IsTrickPlayable(CreateDAWG(), ca.AnalyzeCards(currentList)));
-        }
-
-        [TestMethod()]
-        public void IsTrickPlayable_DogOverSingle_True()
+        public void IsTrickPlayable_DogOverSingle_False()
         {
             Assert.IsFalse(tpr.IsTrickPlayable(CreateDAWG(), CreateSingle(4)));
         }

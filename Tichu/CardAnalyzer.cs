@@ -6,9 +6,9 @@ using Tichu.CardDataNamespace;
 namespace Tichu
 {
 
-    //public enum Combinations { None, NPair, Flush, Straight, NOfAKind, FullHouse, StraightFlush }
+    //public enum Combinations { Invalid, NPair, Flush, Straight, NOfAKind, FullHouse, StraightFlush }
 
-    //public enum TichuCombinations { None, Single, Pair, NContPair, Triple, FullHouse, Straight, Bomb }
+    //public enum TichuCombinations { Invalid, Single, Pair, NContPair, Triple, FullHouse, Straight, Bomb }
 
     public class CardAnalyzer
     {
@@ -28,7 +28,7 @@ namespace Tichu
 
             if (cardCount == 0)
             {
-                return new None(orderedCards, cardCount, WildcardCount);
+                return new Invalid(orderedCards, cardCount, WildcardCount);
             }
             if (IsFourOfAKind(cards))
             {
@@ -50,9 +50,9 @@ namespace Tichu
                         return new Single(orderedCards, cardCount, WildcardCount);
                     }
                 case 2:
-                    return IsPair(cards, true) ? (TichuTrick)new Pair(orderedCards, cardCount, WildcardCount) : new None(orderedCards, cardCount, WildcardCount);
+                    return IsPair(cards, true) ? (TichuTrick)new Pair(orderedCards, cardCount, WildcardCount) : new Invalid(orderedCards, cardCount, WildcardCount);
                 case 3:
-                    return IsThreeOfAKind(cards, true) ? (TichuTrick)new Triple(orderedCards, cardCount, WildcardCount) : new None(orderedCards, cardCount, WildcardCount);
+                    return IsThreeOfAKind(cards, true) ? (TichuTrick)new Triple(orderedCards, cardCount, WildcardCount) : new Invalid(orderedCards, cardCount, WildcardCount);
                 case 5:
                     var n = FindNumberOfCardsInFirstGroupOfFullHouse(cards, true);
                     if (n == 1 || n == 3 || n == 2 && WildcardCount == 0)
@@ -67,13 +67,13 @@ namespace Tichu
                     {
                         return new Straight(orderedCards, cardCount, WildcardCount);
                     }
-                    return new None(orderedCards, cardCount, WildcardCount);
+                    return new Invalid(orderedCards, cardCount, WildcardCount);
             }
             if (cardCount >= 5 && IsStraight(cards, cardCount, 14, true, false, true))
                 return new Straight(orderedCards, cardCount, WildcardCount);
             if (IsNContinousPair(cards, (int)(cardCount * 0.5f), true))
                 return new NContPair(orderedCards, cardCount, WildcardCount);
-            return new None(orderedCards, cardCount, WildcardCount);
+            return new Invalid(orderedCards, cardCount, WildcardCount);
         }
 
         bool IsSingle(IEnumerable<CardData> cards)

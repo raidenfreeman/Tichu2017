@@ -48,7 +48,7 @@
     <Compile Include="AnalysisResults\FullHouse.cs" />
     <Compile Include="AnalysisResults\FullHousePairsWildcard.cs" />
     <Compile Include="AnalysisResults\NContPair.cs" />
-    <Compile Include="AnalysisResults\None.cs" />
+    <Compile Include="AnalysisResults\Invalid.cs" />
     <Compile Include="AnalysisResults\Pair.cs" />
     <Compile Include="AnalysisResults\Phoenix.cs" />
     <Compile Include="AnalysisResults\Single.cs" />
