@@ -2,6 +2,7 @@
 {
     public static class RuleVariables
     {
+        public const int NumberOfPlayers = 4;
         public const int _totalRegularCards = 52;
 
         public const int _totalSpecialCards = 4;
@@ -41,6 +42,8 @@
         public const int DragonPointValue = 25;
 
         public const int PhoenixPointValue = -25;
+
+        public const int OneTwoVictoryPoints = 200;
     }
 
 }

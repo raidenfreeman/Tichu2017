@@ -55,6 +55,7 @@
     <Compile Include="CardAnalyzerTests.cs" />
     <Compile Include="CardData\CardFactoryTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
+    <Compile Include="GameManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrickPlayabilityRulesTests.cs" />
     <Compile Include="TurnManager\TurnManagerTests.cs" />

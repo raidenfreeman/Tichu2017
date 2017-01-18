@@ -89,6 +89,39 @@ namespace Tichu.TurnManagerNamespace
         }
 
         /// <summary>
+        /// Ask to pass the turn to your teammate
+        /// </summary>
+        /// <param name="PlayerID"></param>
+        /// <returns></returns>
+        public bool TryAdvanceTurnToTeammate(int PlayerID)
+        {
+            if (CurrentPlayerID != PlayerID)
+            {
+                return false;
+            }
+
+            AdvanceTurnExplicitlyToPlayer(GetTeammateID(PlayerID));
+            return true;
+        }
+
+        /// <summary>
+        /// Returns the ID of a player's teammate
+        /// </summary>
+        /// <param name="PlayerID">The player's whose teammate you want</param>
+        /// <returns>A player ID</returns>
+        private int GetTeammateID(int PlayerID)
+        {
+            if (!_playerIDs.Contains(PlayerID))
+            {
+                throw new ArgumentException("PlayerID not found in turn manager's players", nameof(PlayerID));
+            }
+            return
+                _playerIDs[
+                    (_playerIDs.IndexOf(PlayerID) + (int)(RuleVariables.NumberOfPlayers * 0.5)) % RuleVariables.NumberOfPlayers
+                ];
+        }
+
+        /// <summary>
         /// Ask to move to the next turn
         /// </summary>
         /// <param name="PlayerID">The ID of the player who asks</param>
@@ -105,6 +138,17 @@ namespace Tichu.TurnManagerNamespace
                 AdvanceTurnExplicitlyToPlayer(targetPlayerID);
             }
             return CurrentPlayerID == PlayerID;
+        }
+
+        /// <summary>
+        /// Give the turn to target player
+        /// </summary>
+        /// <param name="targetPlayerID">The ID of the player to advance to</param>
+        /// <returns>True if successful</returns>
+        public bool ForceAdvanceTurnToPlayer(int targetPlayerID)
+        {
+            AdvanceTurnExplicitlyToPlayer(targetPlayerID);
+            return true;
         }
 
         /// <summary>
