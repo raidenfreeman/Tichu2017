@@ -54,6 +54,7 @@
     <Compile Include="AnalysisResults\Single.cs" />
     <Compile Include="AnalysisResults\Straight.cs" />
     <Compile Include="AnalysisResults\Triple.cs" />
+    <Compile Include="CallbackTest.cs" />
     <Compile Include="CardAnalyzer.cs" />
     <Compile Include="CardData\CardData.cs" />
     <Compile Include="CardData\CardFactory.cs" />

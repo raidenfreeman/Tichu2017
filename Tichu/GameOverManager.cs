@@ -10,14 +10,11 @@ namespace Tichu
     {
         private GameManager gameManager;
 
-        private int FirstPlayerID;
-
-        public GameOverManager(GameManager gameManager, int firstPlayerId)
+        public GameOverManager(GameManager gameManager)
         {
             //TODO: FIX THIS
             throw new NotImplementedException();
             this.gameManager = gameManager;
-            FirstPlayerID = firstPlayerId;
         }
 
         public int CalculateTotalCardValue(List<CardData> cards)
@@ -25,8 +22,17 @@ namespace Tichu
             return cards.Sum(x => x.PointValue);
         }
 
+        private int? FirstPlayerID = null;
         private void OnAdvanceTurn(int turn)
         {
+            if (FirstPlayerID == null)
+            {
+                var tempPlayer = gameManager.Players.Where(x => x.Hand.Count == 0).ToList();
+                if (tempPlayer.Count == 1)
+                {
+                    FirstPlayerID = tempPlayer.First().ID;
+                }
+            }
             if (CheckForGameOver(gameManager.Players))
             {
 
